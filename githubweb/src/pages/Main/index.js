@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import { FaGithubAlt, FaPlus, FaSpinner } from 'react-icons/fa';
 import { Container, Form, SubmitButton, List } from './styles';
+import { Link } from 'react-router-dom';
 import api from '../../services/api';
 
 export default class Main extends Component {
@@ -83,7 +84,9 @@ export default class Main extends Component {
           {repositorios.map(repositorio => (
             <li key={repositorio.name}>
               <span>{repositorio.name}</span>
-              <a href="">mais detalhes</a>
+              <Link to={`/repositorio/${encodeURIComponent(repositorio.name)}`}>
+                mais detalhes
+              </Link>
             </li>
           ))}
         </List>
