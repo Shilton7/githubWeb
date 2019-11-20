@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import api from '../../services/api';
-
-// import { Container } from './styles';
+import { Loading, Owner } from './styles';
+import Container from '../../components/Container';
+import { Link } from 'react-router-dom';
 
 export default class Repositorio extends Component {
   static propTypes = {
@@ -36,11 +37,28 @@ export default class Repositorio extends Component {
     this.setState({
       repositorio: repositorio.data,
       issues: issues.data,
-      laoding: false,
+      loading: false,
     });
   }
   render() {
-    const { repositorio, issues, laoding } = this.state;
-    return <h1>ok</h1>;
+    const { repositorio, issues, loading } = this.state;
+
+    if (loading) {
+      return <Loading>Carregando...</Loading>;
+    }
+    return (
+      <Container>
+        <Owner>
+          <Link to={`/`}>Listagem de busca de repositórios</Link>
+          <img
+            src={repositorio.owner.avatar_url}
+            alt={repositorio.owner.login}
+          />
+
+          <h1>{repositorio.name}</h1>
+          <p>{repositorio.description}</p>
+        </Owner>
+      </Container>
+    );
   }
 }
